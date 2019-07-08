@@ -22,12 +22,16 @@ sigma = 0.3;
 %  Note: You can compute the prediction error using 
 %        mean(double(predictions ~= yval))
 %
-
-
-
-
-
-
+C_possible =[0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+sig_sq_possible = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+new_arr = [];
+for i= 1:8
+  for j= 1:8
+   predictions= svmTrain(X, y, C(i), @(x1, x2) gaussianKernel(x1, x2, sigma(j)));
+   prediction_error = mean(double(predictions != yval));
+   new_arr(i,j) = prediction_error;
+  end
+end
 
 % =========================================================================
 
